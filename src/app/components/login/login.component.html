@@ -1,1 +1,35 @@
-login
+<div class="container">
+  <mat-card class="card">
+    <mat-card-content>
+      <h2 class="mat-card-title">LOGIN</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <span>
+          <mat-error *ngIf="formControls['email'].hasError('email')" class="custom-error">*Invalid email format</mat-error>
+        </span>
+        <mat-form-field appearance="fill" style="width: 100%; box-sizing: border-box; margin-bottom: 15px;">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required maxlength="40">
+        </mat-form-field>
+        <span>
+          <mat-error *ngIf="formControls['password'].hasError('minlength')">*Password must be at least 6 characters</mat-error>
+        </span>
+        <mat-form-field appearance="fill" style="width: 100%; box-sizing: border-box; margin-bottom: 15px;">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required minlength="6" maxlength="20">
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </div>
+
+        <div class="register">
+          <a href="register"> Register</a>
+        </div>
+        <div class="login-message" *ngIf="loginMessage"
+          [ngClass]="{'success-message': loginMessageType === 'success', 'danger-message': loginMessageType === 'danger'}">
+          {{ loginMessage }}
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
