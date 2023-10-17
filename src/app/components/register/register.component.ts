@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,15 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
   registrationForm: FormGroup;
-  email: string = '';
-  password: string = '';
   registrationMessage: string = '';
   registrationMessageType: string = '';
 
   constructor(
     private authService: AuthService,
-    private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.registrationForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,6 +27,7 @@ export class RegisterComponent {
   get formControls() {
     return this.registrationForm.controls;
   }
+
   onSubmit(): void {
     if (this.registrationForm.invalid) {
       return;
@@ -63,8 +62,6 @@ export class RegisterComponent {
       this.registrationMessageType = 'danger';
     } else {
       console.error('Registration failed', error);
-      this.registrationMessage = 'Registration failed';
-      this.registrationMessageType = 'danger';
     }
 
     setTimeout(() => {
@@ -72,4 +69,5 @@ export class RegisterComponent {
       this.registrationMessageType = '';
     }, 2000);
   }
+
 }
