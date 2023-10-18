@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 mongoose.connect('mongodb://127.0.0.1:27017/OnlineShopping-Angular', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
@@ -18,6 +20,11 @@ app.use(bodyParser.json());
 const Customer = mongoose.model('Customer', {
     email: String,
     password: String,
+    userType: {
+        type: String,
+        enum: ['customer', 'admin'],
+        default: 'customer',
+    },
 });
 
 
@@ -45,9 +52,9 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const customer = await Customer.findOne({ email, password });
-
         if (customer) {
-            res.status(200).json({ message: 'Login successful.' });
+            const token = jwt.sign({ userId: customer._id, userType: customer.userType }, process.env.JWT_SECRET);
+            res.status(200).json({ message: 'Login successful.', token: token });
         } else {
             res.status(401).json({ message: 'Invalid email or password.' });
         }
@@ -56,6 +63,26 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ status: 500, message: 'Login failed.' });
     }
 });
+
+app.get('/user-info', async (req, res) => {
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await Customer.findById(decodedToken.userId);
+  
+      if (!user) {
+        res.status(404).json({ status: 404, message: 'User not found.' });
+      } else {
+        res.json({
+          email: user.email,
+          userType: user.userType,
+        });
+      }
+    } catch (error) {
+      console.error('Error getting user info', error);
+      res.status(500).json({ status: 500, message: 'Error getting user info', error: error.message });
+    }
+  });
 
 
 const PORT = process.env.PORT || 3000;

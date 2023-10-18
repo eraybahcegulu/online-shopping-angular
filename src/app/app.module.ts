@@ -9,6 +9,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/authguard.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppRoutingModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AuthService, AuthGuardService], 
   bootstrap: [AppComponent]
 })
 export class AppModule {}
