@@ -5,10 +5,11 @@
 
 ```
 *****************************************
-        if (token) {
-          const headers = { Authorization: `Bearer ${token}` };
-          return this.http.get(`${this.apiUrl}/user-info`, { headers });
-        } 
+if (token) {
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get(`${this.apiUrl}/user-info`, { headers });
+} 
 *****************************************
-    Bearer token > Front-end HTTP isteği ile kimlik doğrulama bilgileri back-end ile paylaşılır. "Authorization" başlığını kullanır
+Bearer token > Front-end HTTP isteği ile kimlik doğrulama bilgileri back-end ile paylaşılır.
+"Authorization" başlığını kullanır
 ```
