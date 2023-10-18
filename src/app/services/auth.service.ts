@@ -4,54 +4,52 @@ import { Observable, of, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:3000';
-    private jwtHelper: JwtHelperService = new JwtHelperService();
+  private apiUrl = 'http://localhost:3000';
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
-    constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-    register(email: string, password: string): Observable<any> {
-        const registerPayload = { email, password };
-        return this.http.post(`${this.apiUrl}/register`, registerPayload);
-    }
+  register(email: string, password: string): Observable<any> {
+    const registerPayload = { email, password };
+    return this.http.post(`${this.apiUrl}/register`, registerPayload);
+  }
 
-    login(email: string, password: string): Observable<any> {
-        const loginPayload = { email, password };
-        return this.http.post(`${this.apiUrl}/login`, loginPayload).pipe(
-            tap((response: any) => {
-                const token = response.token;
-                if (token) {
-
-                    localStorage.setItem('access_token', token);
-                    this.router.navigate(['/dashboard']);
-                }
-            })
-        );
-    }
-    
-    getUserInfo(): Observable<any> {
-        const token = this.getToken();
+  login(email: string, password: string): Observable<any> {
+    const loginPayload = { email, password };
+    return this.http.post(`${this.apiUrl}/login`, loginPayload).pipe(
+      tap((response: any) => {
+        const token = response.token;
         if (token) {
-          const headers = { Authorization: `Bearer ${token}` };
-          return this.http.get(`${this.apiUrl}/user-info`, { headers });
-        } else {
-          return of(null);
+          localStorage.setItem('access_token', token);
         }
-      }
+      })
+    );
+  }
 
-    getToken(): string | null {
-        return localStorage.getItem('access_token');
-      }
+  getUserInfo(): Observable<any> {
+    const token = this.getToken();
+    if (token) {
+      const headers = { Authorization: `Bearer ${token}` };
+      return this.http.get(`${this.apiUrl}/user-info`, { headers });
+    } else {
+      return of(null);
+    }
+  }
 
-      isAuthenticated(): boolean {
-        const token = this.getToken();
-        return token ? !this.jwtHelper.isTokenExpired(token) : false;
-      }
-    
-      logout(): void {
-        localStorage.removeItem('access_token');
-        this.router.navigate(['/login']);
-      }
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return token ? !this.jwtHelper.isTokenExpired(token) : false;
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/login']);
+  }
 }
