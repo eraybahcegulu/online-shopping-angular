@@ -8,16 +8,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/authguard.service';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     RouterModule,
@@ -29,6 +32,6 @@ import { AuthGuardService } from './services/authguard.service';
     ReactiveFormsModule,
   ],
   providers: [AuthService, AuthGuardService], 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

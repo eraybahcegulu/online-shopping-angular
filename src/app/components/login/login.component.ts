@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
@@ -16,7 +15,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -49,10 +48,6 @@ export class LoginComponent {
   private handleLoginResponse(response: any): void {
     this.loginMessage = response.message;
     this.loginMessageType = 'success';
-
-    setTimeout(() => {
-      this.router.navigate(['/dashboard']);
-    }, 1000);
   }
 
   private handleLoginError(error: HttpErrorResponse): void {

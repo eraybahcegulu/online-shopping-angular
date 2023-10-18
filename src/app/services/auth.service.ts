@@ -24,6 +24,16 @@ export class AuthService {
         const token = response.token;
         if (token) {
           localStorage.setItem('access_token', token);
+          const decodedToken = this.jwtHelper.decodeToken(token);
+          if (decodedToken.userType === 'admin') {
+            setTimeout(() => {
+              this.router.navigate(['/admin-dashboard']);
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              this.router.navigate(['/dashboard']);
+            }, 1000);
+          }
         }
       })
     );
