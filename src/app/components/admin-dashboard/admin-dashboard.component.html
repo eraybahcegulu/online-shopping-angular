@@ -3,15 +3,19 @@
     <mat-sidenav #sidenav mode="side" opened>
       <mat-list>
         <mat-list-item>
-          <button mat-button (click)="viewCustomers()">View Customers</button>
+          <button mat-stroked-button (click)="viewCustomers()">View Customers</button>
         </mat-list-item>
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="content">
-        Admin Home
-        Welcome {{ userInfo.email }}
-        <button (click)="logout()">Logout</button>
+        <div class="centered-container">
+          <mat-card class="admin-card">
+            <h2>Admin Home</h2>
+            <p>Welcome {{ userInfo.email }}</p>
+            <button mat-raised-button color="warn" class="logout-button" (click)="logout()">Logout</button>
+          </mat-card>
+        </div>
         <div class="customers-table">
           <app-customers *ngIf="loadCustomersTable" [dataSource]="dataSource"></app-customers>
         </div>
