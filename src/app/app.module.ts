@@ -10,11 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/authguard.service';
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AppCustomersModule  } from './components/admin-dashboard/components/app-customers/app.customers.module';
-
+import { AppCustomersComponent } from './components/admin-dashboard/components/app-customers/app-customers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +20,7 @@ import { AppCustomersModule  } from './components/admin-dashboard/components/app
     RegisterComponent,
     DashboardComponent,
     AdminDashboardComponent,
-
+    AppCustomersComponent
   ],
   imports: [
     RouterModule,
@@ -32,7 +30,7 @@ import { AppCustomersModule  } from './components/admin-dashboard/components/app
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    AppCustomersModule,
+
   ],
   providers: [AuthService, AuthGuardService], 
   bootstrap: [AppComponent],
