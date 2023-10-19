@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CustomerService } from '../../services/customer.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 
 export class AdminDashboardComponent implements OnInit {
-  @ViewChild('paginator') paginator!: MatPaginator;
 
   userInfo: any;
   customers: any[] = [];
@@ -22,17 +21,15 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private authService: AuthService, private customerService: CustomerService) {}
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.authService.getUserInfo().subscribe(
       (userInfo: any) => {
         this.userInfo = userInfo;
       }
     );
-
+  
     this.customerService.getCustomers().subscribe((customers: any[]) => {
       this.customers = customers;
       this.dataSource = new MatTableDataSource(customers);
-      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -42,6 +39,4 @@ export class AdminDashboardComponent implements OnInit {
   logout(): void {
     this.authService.logout();
   }
-
-
 }
