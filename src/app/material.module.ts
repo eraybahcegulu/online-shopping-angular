@@ -7,6 +7,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+
 
 const materialModules = [
   MatFormFieldModule,
@@ -17,6 +22,10 @@ const materialModules = [
   MatSnackBarModule,
   BrowserAnimationsModule,
   NoopAnimationsModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSidenavModule,
+  MatListModule,
 ];
 
 @NgModule({

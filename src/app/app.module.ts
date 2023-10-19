@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { AuthGuardService } from './services/authguard.service';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AppCustomersModule  } from './components/admin-dashboard/components/app-customers/app.customers.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     RegisterComponent,
     DashboardComponent,
     AdminDashboardComponent,
+
   ],
   imports: [
     RouterModule,
@@ -30,8 +32,10 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    AppCustomersModule,
   ],
   providers: [AuthService, AuthGuardService], 
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

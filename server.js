@@ -17,13 +17,21 @@ mongoose.connection.on('error', (err) => {
 app.use(cors());
 app.use(bodyParser.json());
 
-const Customer = mongoose.model('Customer', {
+const Customer = mongoose.model('customers', {
     email: String,
     password: String,
     userType: {
         type: String,
-        enum: ['customer', 'admin'],
         default: 'customer',
+    },
+});
+
+const Admin = mongoose.model('admins', {
+    email: String,
+    password: String,
+    userType: {
+        type: String,
+        default: 'admin',
     },
 });
 
@@ -52,11 +60,19 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const customer = await Customer.findOne({ email, password });
+
         if (customer) {
             const token = jwt.sign({ userId: customer._id, userType: customer.userType }, process.env.JWT_SECRET);
             res.status(200).json({ message: 'Login successful.', token: token });
         } else {
-            res.status(401).json({ message: 'Invalid email or password.' });
+            const admin = await Admin.findOne({ email, password });
+
+            if (admin) {
+                const token = jwt.sign({ userId: admin._id, userType: admin.userType }, process.env.JWT_SECRET);
+                res.status(200).json({ message: 'Login successful.', token: token });
+            } else {
+                res.status(401).json({ message: 'Invalid email or password.' });
+            }
         }
     } catch (error) {
         console.error('Error during login', error);
@@ -68,22 +84,35 @@ app.get('/user-info', async (req, res) => {
     try {
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await Customer.findById(decodedToken.userId);
-  
-      if (!user) {
+
+      const customer = decodedToken.userType === 'customer' ? await Customer.findById(decodedToken.userId) : null;
+      const admin = decodedToken.userType === 'admin' ? await Admin.findById(decodedToken.userId) : null;
+
+      if (!customer && !admin) {
         res.status(404).json({ status: 404, message: 'User not found.' });
-      } else {
+    } else {
+        const user = customer || admin;
         res.json({
-          email: user.email,
-          userType: user.userType,
+            email: user.email,
+            userType: user.userType,
         });
-      }
+    }
     } catch (error) {
       console.error('Error getting user info', error);
       res.status(500).json({ status: 500, message: 'Error getting user info', error: error.message });
     }
   });
 
+
+  app.get('/customers', async (req, res) => {
+    try {
+      const customers = await Customer.find();
+      res.json(customers);
+    } catch (error) {
+      console.error('Error getting customers', error);
+      res.status(500).json({ status: 500, message: 'Error getting customers', error: error.message });
+    }
+  });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

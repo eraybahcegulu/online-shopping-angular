@@ -1,6 +1,21 @@
 <div *ngIf="userInfo">
-    Admin Home
-    Welcome {{ userInfo.email }}
-    <button (click)="logout()">Logout</button>
-  </div>
-  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened>
+      <mat-list>
+        <mat-list-item>
+          <button mat-button (click)="viewCustomers()">View Customers</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content">
+        Admin Home
+        Welcome {{ userInfo.email }}
+        <button (click)="logout()">Logout</button>
+        <div class="customers-table">
+          <app-customers *ngIf="loadCustomersTable" [dataSource]="dataSource"></app-customers>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
