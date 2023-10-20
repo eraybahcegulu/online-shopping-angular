@@ -1,0 +1,35 @@
+<form [formGroup]="newCustomerForm" (submit)="addCustomer()">
+    <mat-card class="add-customer-card">
+        <mat-card-header>
+            <mat-card-title class="title">Add New Customer</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="form-group">
+                <span>
+                    <mat-error *ngIf="formControls['email'].hasError('email')">*Invalid email format</mat-error>
+                </span>
+                <mat-form-field class="form-field">
+                    <input matInput type="email" id="email" name="email" formControlName="email" placeholder="Email"
+                        required>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <span>
+                    <mat-error *ngIf="formControls['password'].hasError('minlength')">*Password must be at least 6
+                        characters</mat-error>
+                </span>
+                <mat-form-field class="form-field">
+                    <input matInput type="password" id="password" name="password" formControlName="password"
+                        placeholder="Password" required>
+                </mat-form-field>
+            </div>
+            <mat-card-actions>
+                <button type="submit" mat-raised-button color="primary">Add Customer</button>
+            </mat-card-actions>
+            <div class="addCustomer-message" *ngIf="addCustomerMessage"
+                [ngClass]="{'success-message': addCustomerMessageType === 'success', 'danger-message': addCustomerMessageType === 'danger'}">
+                {{ addCustomerMessage }}
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

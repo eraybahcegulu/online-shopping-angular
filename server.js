@@ -47,14 +47,19 @@ app.post('/register', async (req, res) => {
         } else {
 
             const newCustomer = new Customer({ email, password });
-            await newCustomer.save();
-            res.status(200).json({ message: 'Registration successful.' });
+            const registeredCustomer = await newCustomer.save();
+            if(registeredCustomer)
+            {
+                res.status(200).json({ message: 'Registration successful.' });
+            }
         }
     } catch (error) {
         console.error('Error saving user to MongoDB', error);
         res.status(500).json({ status: 500, message: 'Registration failed' });
     }
 });
+
+
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -113,6 +118,31 @@ app.get('/user-info', async (req, res) => {
       res.status(500).json({ status: 500, message: 'Error getting customers', error: error.message });
     }
   });
+
+  app.post('/addCustomer', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const existingCustomer = await Customer.findOne({ email });
+  
+      if (existingCustomer) {
+        res.status(400).json({ message: 'Email is already registered.' });
+      } else {
+
+        
+        const newCustomer = new Customer({ email, password });
+        const savedCustomer = await newCustomer.save();
+  
+        if (savedCustomer) {
+          res.status(200).json({ message: 'Customer added successfully.' });
+        }
+      }
+    } catch (error) {
+      console.error('Error adding customer', error);
+      res.status(500).json({ message: 'Error adding customer', error: error.message });
+    }
+  });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

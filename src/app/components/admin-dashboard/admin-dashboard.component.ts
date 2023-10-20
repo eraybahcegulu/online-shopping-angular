@@ -2,9 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CustomerService } from '../../services/customer.service';
 import { MatTableDataSource } from '@angular/material/table';
-
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
 })
@@ -15,7 +14,8 @@ export class AdminDashboardComponent implements OnInit {
   customers: any[] = [];
   displayedColumns: string[] = ['_id', 'email', 'password'];
   dataSource = new MatTableDataSource<any>([]);
-  loadCustomersTable = false;
+  showCustomersTable: boolean = false;
+  showAddCustomersForm: boolean = false;
 
   constructor(private authService: AuthService, private customerService: CustomerService) {}
 
@@ -32,9 +32,16 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  viewCustomers(): void {
-    this.loadCustomersTable = !this.loadCustomersTable;
+  viewCustomers() {
+    this.showCustomersTable = !this.showCustomersTable;
+    this.showAddCustomersForm = false;
   }
+  
+  viewAddCustomers() {
+    this.showCustomersTable = false;
+    this.showAddCustomersForm =  !this.showAddCustomersForm;
+  }
+
   logout(): void {
     this.authService.logout();
   }

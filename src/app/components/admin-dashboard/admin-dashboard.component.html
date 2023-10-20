@@ -2,22 +2,26 @@
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav mode="side" opened>
       <mat-list>
-        <mat-list-item>
-          <button mat-stroked-button (click)="viewCustomers()">View Customers</button>
-        </mat-list-item>
-      </mat-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div>
-        <div class="admin-container">
           <mat-card class="admin-card">
             <h2>Admin Home</h2>
             <p>Welcome {{ userInfo.email }}</p>
             <button mat-raised-button color="warn" class="logout-button" (click)="logout()">Logout</button>
           </mat-card>
+        <mat-list-item>
+          <button mat-stroked-button (click)="viewCustomers()">View Customers</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-stroked-button (click)="viewAddCustomers()">Add Customers</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div>
+        <div class="customers-table" *ngIf="showCustomersTable">
+          <viewCustomers [dataSource]="dataSource"></viewCustomers>
         </div>
-        <div class="customers-table">
-          <app-customers *ngIf="loadCustomersTable" [dataSource]="dataSource"></app-customers>
+        <div class="add-customers-container" *ngIf="showAddCustomersForm">
+          <addCustomers></addCustomers>
         </div>
       </div>
     </mat-sidenav-content>

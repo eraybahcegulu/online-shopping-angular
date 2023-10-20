@@ -14,4 +14,8 @@ export class CustomerService {
   getCustomers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/customers`);
   }
+
+  addCustomer(customerData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addCustomer`, customerData);
+  }
 }

@@ -1,0 +1,25 @@
+.add-customer-card {
+    width: 400px;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.form-field {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+
+.success-message {
+    color: green;
+}
+
+.danger-message {
+    color: red;
+}

@@ -2,11 +2,11 @@ import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './app-customers.component.html',
-  styleUrls: ['./app-customers.component.css'],
+  selector: 'viewCustomers',
+  templateUrl: './viewCustomers.component.html',
+  styleUrls: ['./viewCustomers.component.css'],
 })
-export class AppCustomersComponent implements AfterViewInit {
+export class ViewCustomersComponent implements AfterViewInit {
   @Input() dataSource: any;
   displayedColumns: string[] = ['_id', 'email', 'password'];
   
