@@ -17,23 +17,25 @@ mongoose.connection.on('error', (err) => {
 app.use(cors());
 app.use(bodyParser.json());
 
-const Customer = mongoose.model('customers', {
-    email: String,
-    password: String,
-    userType: {
-        type: String,
-        default: 'customer',
-    },
+const userSchema = new mongoose.Schema({
+  email: String,
+  password: String,
+  userType: {
+    type: String,
+    default: 'customer',
+  },
 });
 
-const Admin = mongoose.model('admins', {
-    email: String,
-    password: String,
-    userType: {
-        type: String,
-        default: 'admin',
-    },
+const productSchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  price: Number,
 });
+
+
+const Customer = mongoose.model('Customer', userSchema);
+const Admin = mongoose.model('Admin', userSchema);
+const Product = mongoose.model('Product', productSchema);
 
 
 app.post('/register', async (req, res) => {
