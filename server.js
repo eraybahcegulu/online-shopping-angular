@@ -171,7 +171,22 @@ app.get('/user-info', async (req, res) => {
     }
   });
 
-
+  app.delete('/deleteCustomer/:customerId', async (req, res) => {
+    const customerId = req.params.customerId;
+    try {
+      const existingCustomer = await Customer.findById(customerId);
+      if (!existingCustomer) {
+        res.status(400).json({ message: 'Customer not found.' });
+      } else {
+        await Customer.deleteOne({ _id: customerId });
+        res.status(200).json({ message: 'Customer deleted successfully.' });
+      }
+    } catch (error) {
+      console.error('Error deleting customer', error);
+      res.status(500).json({ message: 'Error deleting customer', error: error.message });
+    }
+  });
+  
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

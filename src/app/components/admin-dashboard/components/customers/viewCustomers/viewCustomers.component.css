@@ -1,15 +1,23 @@
-.mat-elevation-z8{
+.mat-elevation-z8 {
     width: 800px;
 }
 
-th{
+th {
     text-align: center;
 }
 
-td{
+td {
     text-align: center;
 }
 
 button {
-margin: 2px;
-  }
+    margin: 2px;
+}
+
+.success-message {
+    color: green;
+}
+
+.danger-message {
+    color: red;
+}
