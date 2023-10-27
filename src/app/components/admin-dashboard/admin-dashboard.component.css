@@ -15,7 +15,22 @@
   height: 100vh;
 }
 
+
 .add-customers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.products-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.add-products-container {
   display: flex;
   justify-content: center;
   align-items: center;

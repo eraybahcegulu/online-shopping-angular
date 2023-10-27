@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomerService } from '../../../../services/customer.service';
+import { CustomerService } from '../../../../../services/customer.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./addCustomers.component.css']
 })
 export class AddCustomersComponent {
+  hide = true;
   newCustomerForm: FormGroup;
   addCustomerMessage: string = '';
   addCustomerMessageType: string = '';

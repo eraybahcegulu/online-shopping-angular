@@ -7,14 +7,14 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./viewCustomers.component.css'],
 })
 export class ViewCustomersComponent implements AfterViewInit {
-  @Input() dataSource: any;
-  displayedColumns: string[] = ['_id', 'email', 'password'];
+  @Input() dataSourceCustomers: any;
+  displayedColumns: string[] = ['_id', 'email', 'password', 'actions'];
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit(): void {
     if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
+      this.dataSourceCustomers.paginator = this.paginator;
     }
   }
 }

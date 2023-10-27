@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  hide = true;
   registrationForm: FormGroup;
   registrationMessage: string = '';
   registrationMessageType: string = '';

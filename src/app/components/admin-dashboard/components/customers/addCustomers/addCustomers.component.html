@@ -19,8 +19,12 @@
                         characters</mat-error>
                 </span>
                 <mat-form-field class="form-field">
-                    <input matInput type="password" id="password" name="password" formControlName="password"
-                        placeholder="Password" required>
+                    <input matInput [type]="hide ? 'password' : 'text'" type="password" id="password" name="password"
+                        formControlName="password" placeholder="Password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <i [ngClass]="{'fas fa-eye-slash': hide, 'fa fa-eye': !hide}"></i>
+                    </button>
                 </mat-form-field>
             </div>
             <mat-card-actions>

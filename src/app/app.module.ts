@@ -12,8 +12,10 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/authguard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { ViewCustomersComponent } from './components/admin-dashboard/components/viewCustomers/viewCustomers.component';
-import { AddCustomersComponent } from './components/admin-dashboard/components/addCustomers/addCustomers.component';
+import { ViewCustomersComponent } from './components/admin-dashboard/components/customers/viewCustomers/viewCustomers.component';
+import { ViewProductsComponent } from './components/admin-dashboard/components/products/viewProducts/viewProducts.component';
+import { AddCustomersComponent } from './components/admin-dashboard/components/customers/addCustomers/addCustomers.component';
+import { AddProductsComponent } from './components/admin-dashboard/components/products/addProducts/addProducts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,9 @@ import { AddCustomersComponent } from './components/admin-dashboard/components/a
     DashboardComponent,
     AdminDashboardComponent,
     ViewCustomersComponent,
+    ViewProductsComponent,
     AddCustomersComponent,
+    AddProductsComponent
   ],
   imports: [
     RouterModule,

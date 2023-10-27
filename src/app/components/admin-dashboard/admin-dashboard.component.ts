@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CustomerService } from '../../services/customer.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -12,12 +13,13 @@ export class AdminDashboardComponent implements OnInit {
 
   userInfo: any;
   customers: any[] = [];
+  products: any[] = [];
   displayedColumns: string[] = ['_id', 'email', 'password'];
-  dataSource = new MatTableDataSource<any>([]);
-  showCustomersTable: boolean = false;
-  showAddCustomersForm: boolean = false;
+  dataSourceProducts = new MatTableDataSource<any>([]);
+  dataSourceCustomers = new MatTableDataSource<any>([]);
+  currentView: string = '';
 
-  constructor(private authService: AuthService, private customerService: CustomerService) {}
+  constructor(private authService: AuthService, private customerService: CustomerService, private productService: ProductService) {}
 
   ngOnInit(): void {
     this.authService.getUserInfo().subscribe(
@@ -25,22 +27,26 @@ export class AdminDashboardComponent implements OnInit {
         this.userInfo = userInfo;
       }
     );
+
+    this.productService.getProducts().subscribe((products: any[]) => {
+      this.products = products;
+      this.dataSourceProducts = new MatTableDataSource(products);
+    });
   
     this.customerService.getCustomers().subscribe((customers: any[]) => {
       this.customers = customers;
-      this.dataSource = new MatTableDataSource(customers);
+      this.dataSourceCustomers = new MatTableDataSource(customers);
     });
   }
 
-  viewCustomers() {
-    this.showCustomersTable = !this.showCustomersTable;
-    this.showAddCustomersForm = false;
+  view(view: string) {
+    if (this.currentView === view) {
+      this.currentView = '';
+    } else {
+      this.currentView = view;
+    }
   }
-  
-  viewAddCustomers() {
-    this.showCustomersTable = false;
-    this.showAddCustomersForm =  !this.showAddCustomersForm;
-  }
+
 
   logout(): void {
     this.authService.logout();

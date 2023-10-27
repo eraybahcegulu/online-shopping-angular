@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  hide = true;
   loginForm: FormGroup;
   loginMessage: string = '';
   loginMessageType: string = '';
@@ -22,7 +23,6 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
   }
-
   get formControls() {
     return this.loginForm.controls;
   }

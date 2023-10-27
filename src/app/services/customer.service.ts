@@ -6,10 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CustomerService {
-  [x: string]: any;
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCustomers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/customers`);
