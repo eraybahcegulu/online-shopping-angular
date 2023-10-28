@@ -27,6 +27,7 @@ export class ViewCustomersComponent implements AfterViewInit {
     this.customerService.deleteCustomer(customerId).subscribe(
       (response) => {
         this.handleDeleteCustomerResponse(response);
+        this.dataSourceCustomers.data = this.dataSourceCustomers.data.filter((customer: { _id: string; }) => customer._id !== customerId);
       },
       (error) => {
         this.handleDeleteCustomerError(error);
