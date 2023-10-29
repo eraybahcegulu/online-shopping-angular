@@ -58,7 +58,7 @@ export class ViewCustomersComponent implements AfterViewInit {
   }
 
   editErrors(customer: any): boolean {
-    if (!customer.email.includes('@') || customer.email.length < 3 || customer.password.length < 6) {
+    if (!customer.email.includes('@') || customer.email.trim().length < 3 || customer.password.trim().length < 6) {
       return true;
     }
     return false;
