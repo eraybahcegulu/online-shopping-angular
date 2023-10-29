@@ -60,7 +60,7 @@ export class ViewProductsComponent implements AfterViewInit {
 
 
   editErrors(product: any): boolean {
-    if (product.name.length < 2 || product.description.length < 2 || product.price === null || product.price === undefined) {
+    if (product.name.trim().length < 2 || product.description.trim().length < 2 || product.price === null || product.price === undefined) {
       return true;
     }
     return false;
