@@ -1,3 +1,4 @@
+<h1>CUSTOMERS</h1>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSourceCustomers">
         <ng-container matColumnDef="_id">
@@ -14,7 +15,7 @@
                 <ng-template #emailField>
                     <span>
                         <mat-error *ngIf="!customer.email.includes('@')">*Invalid email format</mat-error>
-                        <mat-error *ngIf="customer.email.length < 3">*Email must be at least 3 characters</mat-error>
+                        <mat-error *ngIf="customer.email.trim().length < 3">*Email must be at least 3 characters</mat-error>
                     </span>
                     <input placeholder="Email" class="table-input" type="text" [(ngModel)]="customer.email" maxlength="40">
                 </ng-template>
@@ -29,7 +30,7 @@
                 </ng-container>
                 <ng-template #passwordField>
                     <span>
-                        <mat-error *ngIf="customer.password.length < 6">*Password must be at least 6 characters</mat-error>
+                        <mat-error *ngIf="customer.password.trim().length < 6">*Password must be at least 6 characters</mat-error>
                     </span>
                     <input placeholder="Password" class="table-input" type="text" [(ngModel)]="customer.password" maxlength="20">
                 </ng-template>
