@@ -51,6 +51,22 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else quantityField">
+                    {{ product.quantity }}
+                </ng-container>
+                <ng-template #quantityField>
+                    <span>
+                        <mat-error *ngIf="product.quantity === null || product.quantity === undefined">*Product quantity cannot be empty</mat-error>
+                    </span>
+                    <input placeholder="Quantity" class="table-input" type="number" required [(ngModel)]="product.quantity" maxlength="30">
+                </ng-template>
+            </td>
+        </ng-container>
+        
+
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let product">

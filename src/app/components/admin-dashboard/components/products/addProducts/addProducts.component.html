@@ -7,24 +7,32 @@
             <div class="form-group">
                 <div class="form-field-container">
                     <mat-form-field>
-                        <mat-label>Enter Product Name</mat-label>
+                        <mat-label>Name</mat-label>
                         <input matInput #inputProductName formControlName="productName" maxlength="50">
                         <mat-hint align="end">{{inputProductName.value.length}}/50</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="form-field-container">
                     <mat-form-field>
-                        <mat-label>Enter Product Description</mat-label>
+                        <mat-label>Description</mat-label>
                         <textarea matInput #inputProductDescription class="inputProductDescription" formControlName="productDescription" maxlength="80"></textarea> 
                         <mat-hint align="end">{{inputProductDescription.value.length}}/80</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="form-field-container">
                     <mat-form-field>
-                        <mat-label>Enter Product Price</mat-label>
-                        <input matInput  type="number" #inputProductPrice (input)="onPriceInput($event)" formControlName="productPrice" maxlength="30">
+                        <mat-label>Price</mat-label>
+                        <input matInput  type="number" #inputProductPrice formControlName="productPrice" maxlength="30">
                     </mat-form-field>
                 </div>
+                <div class="form-field-container">
+                    <mat-form-field>
+                        <mat-label>Quantity</mat-label>
+                        <input matInput type="number" #inputProductQuantity formControlName="productQuantity" maxlength="30">
+                    </mat-form-field>
+                </div>
+                
+                
             </div>
             <mat-card-actions>
                 <button type="submit" mat-raised-button color="primary">Add Product</button>

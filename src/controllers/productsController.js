@@ -11,10 +11,10 @@ async function getProducts(req, res) {
 }
 
 async function addProduct(req, res) {
-    const { name, description, price } = req.body;
+    const { name, description, price, quantity } = req.body;
   
     try {
-      const newProduct = new Product({ name, description, price });
+      const newProduct = new Product({ name, description, price, quantity });
       const savedProduct = await newProduct.save();
   
       if (savedProduct) {
@@ -46,7 +46,7 @@ async function addProduct(req, res) {
 
   async function updateProduct(req, res) {
     const productId = req.params.productId;
-    const { name, description, price } = req.body;
+    const { name, description, price, quantity } = req.body;
   
     try {
       const existingProduct = await Product.findById(productId);
@@ -58,6 +58,7 @@ async function addProduct(req, res) {
       existingProduct.name = name;
       existingProduct.description = description;
       existingProduct.price = price;
+      existingProduct.quantity = quantity;
 
       const updatedProduct = await existingProduct.save();
   

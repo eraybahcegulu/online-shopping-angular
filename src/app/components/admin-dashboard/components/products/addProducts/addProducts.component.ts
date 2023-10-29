@@ -18,7 +18,8 @@ export class AddProductsComponent {
     this.newProductForm = this.formBuilder.group({
       productName: ['', [Validators.required]],
       productDescription: ['', [Validators.required]],
-      productPrice: ['', [Validators.required]]
+      productPrice: ['', [Validators.required]],
+      productQuantity: ['', [Validators.required]],
     });
   }
 
@@ -26,11 +27,6 @@ export class AddProductsComponent {
     return this.newProductForm.controls;
   }
 
-  onPriceInput(event: any) {
-    const input = event.target.value;
-    const numericValue = input.replace(/[^0-9.]/g, '');
-    this.newProductForm.controls['productPrice'].setValue(numericValue);
-  }
 
   addProduct() {
     if (this.newProductForm.valid) {
@@ -38,7 +34,8 @@ export class AddProductsComponent {
       const productData = {
         name: this.newProductForm.controls['productName'].value,
         description: this.newProductForm.controls['productDescription'].value,
-        price: this.newProductForm.controls['productPrice'].value
+        price: this.newProductForm.controls['productPrice'].value,
+        quantity: this.newProductForm.controls['productQuantity'].value
       };
   
       this.productService.addProduct(productData).subscribe(

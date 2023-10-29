@@ -13,7 +13,7 @@ export class ViewProductsComponent implements AfterViewInit {
   message: string = '';
   messageType: string = '';
 
-  displayedColumns: string[] = ['_id', 'name', 'description', 'price', 'actions'];
+  displayedColumns: string[] = ['_id', 'name', 'description', 'price', 'quantity', 'actions'];
   constructor(private productService: ProductService) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -60,7 +60,7 @@ export class ViewProductsComponent implements AfterViewInit {
 
 
   editErrors(product: any): boolean {
-    if (product.name.trim().length < 2 || product.description.trim().length < 2 || product.price === null || product.price === undefined) {
+    if (product.name.trim().length < 2 || product.description.trim().length < 2 || product.price === null || product.price === undefined || product.quantity === null || product.quantity === undefined) {
       return true;
     }
     return false;
@@ -76,7 +76,8 @@ export class ViewProductsComponent implements AfterViewInit {
     const updatedProductData = {
       name: product.name,
       description: product.description,
-      price: product.price
+      price: product.price,
+      quantity: product.quantity
     };
 
     this.productService.updateProduct(product._id, updatedProductData).subscribe(
