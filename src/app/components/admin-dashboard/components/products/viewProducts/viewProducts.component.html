@@ -1,3 +1,4 @@
+<h1>PRODUCTS</h1>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSourceProducts">
         <ng-container matColumnDef="_id">
@@ -13,7 +14,7 @@
                 </ng-container>
                 <ng-template #nameField>
                     <span>
-                        <mat-error *ngIf="product.name.length < 2">*Product name must be at least 2 characters</mat-error>
+                        <mat-error *ngIf="product.name.trim().length < 2">*Product name must be at least 2 characters</mat-error>
                     </span>
                     <input placeholder="Name" class="table-input" type="text" required [(ngModel)]="product.name" maxlength="50">
                 </ng-template>
@@ -28,7 +29,7 @@
                 </ng-container>
                 <ng-template #descriptionField>
                     <span>
-                        <mat-error *ngIf="product.description.length < 2">*Product description must be at least 2 characters</mat-error>
+                        <mat-error *ngIf="product.description.trim().length < 2">*Product description must be at least 2 characters</mat-error>
                     </span>
                     <input placeholder="Description" class="table-input" type="text" required [(ngModel)]="product.description" maxlength="80">
                 </ng-template>
