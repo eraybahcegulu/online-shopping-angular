@@ -13,7 +13,9 @@ td {
 
 button {
     margin: 2px;
+    width: 20%;
 }
+
 
 .success-message {
     color: green;
@@ -21,4 +23,11 @@ button {
 
 .danger-message {
     color: red;
+}
+
+.table-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #6e6d6d;
+    border-radius: 5px;
 }

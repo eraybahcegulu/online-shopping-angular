@@ -7,29 +7,72 @@
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let product">{{ product.name }} </td>
+            <td mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else nameField">
+                    {{ product.name }}
+                </ng-container>
+                <ng-template #nameField>
+                    <span>
+                        <mat-error *ngIf="product.name.length < 2">*Product name must be at least 2 characters</mat-error>
+                    </span>
+                    <input placeholder="Name" class="table-input" type="text" required [(ngModel)]="product.name" maxlength="50">
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Description</th>
-            <td mat-cell *matCellDef="let product">{{ product.description }} </td>
+            <td mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else descriptionField">
+                    {{ product.description }}
+                </ng-container>
+                <ng-template #descriptionField>
+                    <span>
+                        <mat-error *ngIf="product.description.length < 2">*Product description must be at least 2 characters</mat-error>
+                    </span>
+                    <input placeholder="Description" class="table-input" type="text" required [(ngModel)]="product.description" maxlength="80">
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef>Price</th>
-            <td mat-cell *matCellDef="let product">{{ product.price }} </td>
+            <td mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else priceField">
+                    {{ product.price }}
+                </ng-container>
+                <ng-template #priceField>
+                    <span>
+                        <mat-error *ngIf="product.price === null || product.price === undefined">*Product price cannot be empty</mat-error>
+                    </span>
+                    <input placeholder="Price" class="table-input" type="number" required [(ngModel)]="product.price" maxlength="30">
+                </ng-template>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let customer">
-                <button mat-stroked-button color="primary">Edit</button>
-                <button mat-stroked-button color="warn">Delete</button>
+            <td mat-cell *matCellDef="let product">
+
+                <ng-container *ngIf="!product.isEditing; else editField">
+                    <button mat-stroked-button color="primary" (click)="startEditing(product)">Edit</button>
+                    <button mat-stroked-button color="warn" (click)="deleteProduct(product._id)">Delete</button>
+                </ng-container>
+                <ng-template #editField>
+                    <button mat-raised-button color="primary" (click)="saveEditedProduct(product)" [disabled]="editErrors(product)">Save</button>
+                </ng-template>
+                
             </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"> </tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of periodic elements"></mat-paginator>
+</div>
+
+<div style="margin-top: 20px;" class="deleteCustomer-message" *ngIf="message"
+    [ngClass]="{'success-message': messageType === 'success', 'danger-message': messageType === 'danger'}">
+    {{ message }}
 </div>

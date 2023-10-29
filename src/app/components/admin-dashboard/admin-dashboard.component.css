@@ -15,6 +15,9 @@
   height: 100vh;
 }
 
+.admin-home-buttons{
+  width: 100%;
+}
 
 .add-customers-container {
   display: flex;
@@ -36,4 +39,3 @@
   align-items: center;
   height: 100vh;
 }
-

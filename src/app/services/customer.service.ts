@@ -19,6 +19,11 @@ export class CustomerService {
   }
 
   deleteCustomer(customerId: string) {
-  return this.http.delete(`${this.apiUrl}/deleteCustomer/${customerId}`);
-}
+    return this.http.delete(`${this.apiUrl}/deleteCustomer/${customerId}`);
+  }
+
+  updateCustomer(customerId: string, updatedCustomerData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/updateCustomer/${customerId}`, updatedCustomerData);
+  }
+  
 }

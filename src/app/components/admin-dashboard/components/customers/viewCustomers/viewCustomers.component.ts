@@ -9,8 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ViewCustomersComponent implements AfterViewInit {
 
-  deleteCustomerMessage: string = '';
-  deleteCustomerMessageType: string = '';
+  message: string = '';
+  messageType: string = '';
 
   @Input() dataSourceCustomers: any;
   displayedColumns: string[] = ['_id', 'email', 'password', 'actions'];
@@ -36,28 +36,67 @@ export class ViewCustomersComponent implements AfterViewInit {
   }
 
   private handleDeleteCustomerResponse(response: any): void {
-    this.deleteCustomerMessage = response.message;
-    this.deleteCustomerMessageType = 'success';
+    this.message = response.message;
+    this.messageType = 'success';
     setTimeout(() => {
-      this.deleteCustomerMessage = '';
-      this.deleteCustomerMessageType = '';
+      this.message = '';
+      this.messageType = '';
     }, 2000);
   }
 
   private handleDeleteCustomerError(error: HttpErrorResponse): void {
     if (error.status === 400) {
-      this.deleteCustomerMessage = error.error.message;
-      this.deleteCustomerMessageType = 'danger';
+      this.message = error.error.message;
+      this.messageType = 'danger';
     } else {
-      console.error('Registration failed', error);
+      console.error('Failed', error);
     }
     setTimeout(() => {
-      this.deleteCustomerMessage = '';
-      this.deleteCustomerMessageType = '';
+      this.message = '';
+      this.messageType = '';
     }, 2000);
   }
 
-  editCustomer(){
+  editErrors(customer: any): boolean {
+    if (!customer.email.includes('@') || customer.email.length < 3 || customer.password.length < 6) {
+      return true;
+    }
+    return false;
+  }
 
+  startEditing(customer: any) {
+    customer.isEditing = true;
+  }
+
+  saveEditedCustomer(customer: any) {
+    customer.isEditing = false;
+  
+    const updatedCustomerData = {
+      email: customer.email,
+      password: customer.password,
+    };
+
+    this.customerService.updateCustomer(customer._id, updatedCustomerData).subscribe(
+      (response) => {
+        this.message = response.message;
+        this.messageType = 'success';
+        setTimeout(() => {
+          this.message = '';
+          this.messageType = '';
+        }, 2000);
+      },
+      (error) => {
+        if (error.status === 400) {
+          this.message = error.error.message;
+          this.messageType = 'danger';
+        } else {
+          console.error('Failed', error);
+        }
+        setTimeout(() => {
+          this.message = '';
+          this.messageType = '';
+        }, 2000);
+      }
+    );
   }
 }

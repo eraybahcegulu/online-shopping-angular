@@ -51,4 +51,29 @@ async function addCustomer(req, res) {
     }
   }
 
-module.exports = { getCustomers, addCustomer,deleteCustomer };
+  async function updateCustomer(req, res) {
+    const customerId = req.params.customerId;
+    const { email, password } = req.body;
+  
+    try {
+      const existingCustomer = await Customer.findById(customerId);
+  
+      if (!existingCustomer) {
+        return res.status(400).json({ message: 'Customer not found.' });
+      }
+  
+      existingCustomer.email = email;
+      existingCustomer.password = password;
+  
+      const updatedCustomer = await existingCustomer.save();
+  
+      if (updatedCustomer) {
+        return res.status(200).json({ message: 'Customer updated successfully.' });
+      }
+    } catch (error) {
+      console.error('Error updating customer', error);
+      res.status(500).json({ message: 'Error updating customer', error: error.message });
+    }
+  }
+
+module.exports = { getCustomers, addCustomer,deleteCustomer, updateCustomer };
