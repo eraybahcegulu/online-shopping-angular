@@ -12,6 +12,18 @@
                         <mat-hint align="end">{{inputProductName.value.length}}/50</mat-hint>
                     </mat-form-field>
                 </div>
+
+                <div class="form-field-container">
+                    <mat-form-field>
+                      <mat-label>Select Type</mat-label>
+                      <mat-select #selectProductType formControlName="productType" disableRipple>
+                        <mat-option *ngFor="let productType of productTypes" [value]="productType.type" >
+                          {{ productType.type }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
                 <div class="form-field-container">
                     <mat-form-field>
                         <mat-label>Description</mat-label>
@@ -31,11 +43,9 @@
                         <input matInput type="number" #inputProductQuantity formControlName="productQuantity" maxlength="30">
                     </mat-form-field>
                 </div>
-                
-                
             </div>
             <mat-card-actions>
-                <button type="submit" mat-raised-button color="primary">Add Product</button>
+                <button type="submit" mat-raised-button color="primary" [disabled]="editErrors(inputProductName, inputProductDescription, inputProductPrice, inputProductQuantity, selectProductType)">Add Product</button>
             </mat-card-actions>
             <div class="addProduct-message" *ngIf="addProductMessage"
             [ngClass]="{'success-message': addProductMessageType === 'success', 'danger-message': addProductMessageType === 'danger'}">

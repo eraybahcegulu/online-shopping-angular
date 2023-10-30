@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const ProductType = require('../models/productType');
 
 async function getProducts(req, res) {
   try {
@@ -11,10 +12,10 @@ async function getProducts(req, res) {
 }
 
 async function addProduct(req, res) {
-    const { name, description, price, quantity } = req.body;
+    const { name, type, description, price, quantity } = req.body;
   
     try {
-      const newProduct = new Product({ name, description, price, quantity });
+      const newProduct = new Product({ name, type, description, price, quantity });
       const savedProduct = await newProduct.save();
   
       if (savedProduct) {
@@ -46,7 +47,7 @@ async function addProduct(req, res) {
 
   async function updateProduct(req, res) {
     const productId = req.params.productId;
-    const { name, description, price, quantity } = req.body;
+    const { name, type, description, price, quantity } = req.body;
   
     try {
       const existingProduct = await Product.findById(productId);
@@ -56,6 +57,7 @@ async function addProduct(req, res) {
       }
   
       existingProduct.name = name;
+      existingProduct.type = type;
       existingProduct.description = description;
       existingProduct.price = price;
       existingProduct.quantity = quantity;
@@ -70,4 +72,74 @@ async function addProduct(req, res) {
       res.status(500).json({ message: 'Error updating product', error: error.message });
     }
   }
-module.exports = { getProducts, addProduct, deleteProduct, updateProduct };
+
+  async function addProductType(req, res) {
+    const { type } = req.body;
+  
+    try {
+      const newProductType = new ProductType({ type });
+      const savedProductType = await newProductType.save();
+  
+      if (savedProductType) {
+        res.status(200).json({ message: 'Product Type added successfully.' });
+      }
+    } catch (error) {
+      console.error('Error adding product type', error);
+      res.status(500).json({ message: 'Error adding product type', error: error.message });
+    }
+  }
+
+  async function getProductTypes(req, res) {
+    try {
+      const productTypes = await ProductType.find();
+      res.json(productTypes);
+    } catch (error) {
+      console.error('Error getting product types', error);
+      res.status(500).json({ status: 500, message: 'Error getting product types', error: error.message });
+    }
+  }
+
+  
+  async function deleteProductType(req, res) {
+    const productTypeId = req.params.productTypeId;
+    
+    try {
+      const existingProductType = await ProductType.findById(productTypeId);
+      
+      if (!existingProductType) {
+        return res.status(400).json({ message: 'Product type not found.' });
+      }
+  
+      await ProductType.deleteOne({ _id: productTypeId });
+      return res.status(200).json({ message: 'Product type deleted successfully.' });
+    } catch (error) {
+      console.error('Error deleting product type', error);
+      res.status(500).json({ message: 'Error deleting product type', error: error.message });
+    }
+  }
+
+  async function updateProductType(req, res) {
+    const productTypeId = req.params.productTypeId;
+    const { type } = req.body;
+  
+    try {
+      const existingProductType = await ProductType.findById(productTypeId);
+  
+      if (!existingProductType) {
+        return res.status(400).json({ message: 'Product not found.' });
+      }
+  
+      existingProductType.type = type;
+
+
+      const updatedProductType = await existingProductType.save();
+  
+      if (updatedProductType) {
+        return res.status(200).json({ message: 'Product type updated successfully.' });
+      }
+    } catch (error) {
+      console.error('Error updating product type', error);
+      res.status(500).json({ message: 'Error updating product type', error: error.message });
+    }
+  }
+module.exports = { getProducts, addProduct, deleteProduct, updateProduct, addProductType, getProductTypes, deleteProductType , updateProductType };

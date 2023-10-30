@@ -21,6 +21,13 @@ export class AddCustomersComponent {
     });
   }
 
+  editErrors(inputCustomerEmail: any , inputCustomerPassword: any): boolean {
+    if (!inputCustomerEmail.value.includes('@') || inputCustomerPassword.value.trim().length < 6 ) {
+      return true;
+    }
+    return false;
+  }
+
   get formControls() {
     return this.newCustomerForm.controls;
   }

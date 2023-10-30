@@ -25,4 +25,20 @@ export class ProductService {
   updateProduct(productId: string, updatedProductData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/updateProduct/${productId}`, updatedProductData);
   }
+
+  addProductType(productTypeData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addProductType`, productTypeData);
+  }
+
+  getProductTypes(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/productTypes`);
+  }
+
+  deleteProductType(productTypeId: string) {
+    return this.http.delete(`${this.apiUrl}/deleteProductType/${productTypeId}`);
+  }
+
+  updateProductType(productTypeId: string, updatedProductTypeData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/updateProductType/${productTypeId}`, updatedProductTypeData);
+  }
 }

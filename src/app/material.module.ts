@@ -11,6 +11,7 @@ import { MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const materialModules = [
@@ -26,6 +27,7 @@ const materialModules = [
   MatPaginatorModule,
   MatSidenavModule,
   MatListModule,
+  MatSelectModule
 ];
 
 @NgModule({

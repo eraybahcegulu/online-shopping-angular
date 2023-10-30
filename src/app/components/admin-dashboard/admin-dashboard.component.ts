@@ -14,9 +14,10 @@ export class AdminDashboardComponent implements OnInit {
   userInfo: any;
   customers: any[] = [];
   products: any[] = [];
-  displayedColumns: string[] = ['_id', 'email', 'password'];
+  productTypes: any[] = [];
   dataSourceProducts = new MatTableDataSource<any>([]);
   dataSourceCustomers = new MatTableDataSource<any>([]);
+  dataSourceProductTypes = new MatTableDataSource<any>([]);
   currentView: string = '';
 
   constructor(private authService: AuthService, private customerService: CustomerService, private productService: ProductService) {}
@@ -37,6 +38,12 @@ export class AdminDashboardComponent implements OnInit {
       this.customers = customers;
       this.dataSourceCustomers = new MatTableDataSource(customers);
     });
+
+    this.productService.getProductTypes().subscribe((productTypes: any[]) => {
+      this.productTypes = productTypes;
+      this.dataSourceProductTypes = new MatTableDataSource(productTypes);
+    });
+    
   }
 
   view(view: string) {

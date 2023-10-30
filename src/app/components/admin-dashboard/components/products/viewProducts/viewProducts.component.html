@@ -14,13 +14,29 @@
                 </ng-container>
                 <ng-template #nameField>
                     <span>
-                        <mat-error *ngIf="product.name.trim().length < 2">*Product name must be at least 2 characters</mat-error>
+                        <mat-error *ngIf="product.name.trim().length < 1">*Product name cannot be empty</mat-error>
                     </span>
                     <input placeholder="Name" class="table-input" type="text" required [(ngModel)]="product.name" maxlength="50">
                 </ng-template>
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let product">
+                <ng-container *ngIf="!product.isEditing; else typeField">
+                    {{ product.type }}
+                </ng-container>
+                <ng-template #typeField>
+                          <mat-select style="width: 100px;" disableRipple [(value)]="product.type">
+                            <mat-option *ngFor="let productType of productTypes" [value]="productType.type">
+                              {{ productType.type }}
+                            </mat-option>
+                          </mat-select>
+                </ng-template>
+            </td>
+        </ng-container>
+        
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Description</th>
             <td mat-cell *matCellDef="let product">
@@ -29,7 +45,7 @@
                 </ng-container>
                 <ng-template #descriptionField>
                     <span>
-                        <mat-error *ngIf="product.description.trim().length < 2">*Product description must be at least 2 characters</mat-error>
+                        <mat-error *ngIf="product.description.trim().length < 1">*Product description cannot be empty</mat-error>
                     </span>
                     <input placeholder="Description" class="table-input" type="text" required [(ngModel)]="product.description" maxlength="80">
                 </ng-template>
@@ -89,7 +105,7 @@
         aria-label="Select page of periodic elements"></mat-paginator>
 </div>
 
-<div style="margin-top: 20px;" class="deleteCustomer-message" *ngIf="message"
+<div style="margin-top: 20px;" class="deleteProduct-message" *ngIf="message"
     [ngClass]="{'success-message': messageType === 'success', 'danger-message': messageType === 'danger'}">
     {{ message }}
 </div>

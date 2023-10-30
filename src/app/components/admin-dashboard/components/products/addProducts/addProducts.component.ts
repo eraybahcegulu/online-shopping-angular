@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../../../../../services/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,6 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./addProducts.component.css']
 })
 export class AddProductsComponent {
+  @Input() productTypes: any[] | undefined;
+  
   newProductForm: FormGroup;
 
   addProductMessage: string = '';
@@ -17,6 +19,7 @@ export class AddProductsComponent {
   constructor(private productService: ProductService, private formBuilder: FormBuilder) {
     this.newProductForm = this.formBuilder.group({
       productName: ['', [Validators.required]],
+      productType: ['', [Validators.required]],
       productDescription: ['', [Validators.required]],
       productPrice: ['', [Validators.required]],
       productQuantity: ['', [Validators.required]],
@@ -27,12 +30,19 @@ export class AddProductsComponent {
     return this.newProductForm.controls;
   }
 
+  editErrors(inputProductName: any, inputProductDescription: any, inputProductPrice: any, inputProductQuantity : any, selectProductType : any): boolean {
+    if (inputProductName.value.trim().length < 1 || inputProductDescription.value.trim().length < 1 || inputProductPrice.value.trim().length < 1 || inputProductQuantity.value.trim().length < 1 || selectProductType.value.trim().length < 1) {
+      return true;
+    }
+    return false;
+  }
 
   addProduct() {
     if (this.newProductForm.valid) {
 
       const productData = {
         name: this.newProductForm.controls['productName'].value,
+        type: this.newProductForm.controls['productType'].value,
         description: this.newProductForm.controls['productDescription'].value,
         price: this.newProductForm.controls['productPrice'].value,
         quantity: this.newProductForm.controls['productQuantity'].value

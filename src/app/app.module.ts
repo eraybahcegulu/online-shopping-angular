@@ -16,6 +16,7 @@ import { ViewCustomersComponent } from './components/admin-dashboard/components/
 import { ViewProductsComponent } from './components/admin-dashboard/components/products/viewProducts/viewProducts.component';
 import { AddCustomersComponent } from './components/admin-dashboard/components/customers/addCustomers/addCustomers.component';
 import { AddProductsComponent } from './components/admin-dashboard/components/products/addProducts/addProducts.component';
+import { ProductTypesComponent } from './components/admin-dashboard/components/products/productTypes/productTypes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { AddProductsComponent } from './components/admin-dashboard/components/pr
     ViewCustomersComponent,
     ViewProductsComponent,
     AddCustomersComponent,
-    AddProductsComponent
+    AddProductsComponent,
+    ProductTypesComponent
   ],
   imports: [
     RouterModule,

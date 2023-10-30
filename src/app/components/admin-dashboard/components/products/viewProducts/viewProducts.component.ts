@@ -9,11 +9,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ViewProductsComponent implements AfterViewInit {
   @Input() dataSourceProducts: any;
-
+  @Input() productTypes: any[] | undefined;
+  
   message: string = '';
   messageType: string = '';
 
-  displayedColumns: string[] = ['_id', 'name', 'description', 'price', 'quantity', 'actions'];
+  displayedColumns: string[] = ['_id', 'name', 'type', 'description', 'price', 'quantity', 'actions'];
   constructor(private productService: ProductService) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -60,7 +61,7 @@ export class ViewProductsComponent implements AfterViewInit {
 
 
   editErrors(product: any): boolean {
-    if (product.name.trim().length < 2 || product.description.trim().length < 2 || product.price === null || product.price === undefined || product.quantity === null || product.quantity === undefined) {
+    if (product.name.trim().length < 1 || product.description.trim().length < 1 || product.price === null || product.price === undefined || product.quantity === null || product.quantity === undefined) {
       return true;
     }
     return false;
@@ -75,6 +76,7 @@ export class ViewProductsComponent implements AfterViewInit {
   
     const updatedProductData = {
       name: product.name,
+      type:product.type,
       description: product.description,
       price: product.price,
       quantity: product.quantity

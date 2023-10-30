@@ -19,6 +19,9 @@
           <mat-list-item>
             <button class="admin-home-buttons" mat-flat-button color="primary" (click)="view('products')">View Products</button>
           </mat-list-item>
+          <mat-list-item>
+            <button class="admin-home-buttons" mat-flat-button color="primary" (click)="view('productTypes')">Product Types</button>
+          </mat-list-item>
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -30,10 +33,13 @@
           <addCustomers></addCustomers>
         </div>
         <div class="add-products-container" *ngIf="currentView === 'addProducts'">
-          <addProducts></addProducts>
+          <addProducts [productTypes]="productTypes"></addProducts>
         </div>
         <div class="products-table" *ngIf="currentView === 'products'">
-          <viewProducts [dataSourceProducts]="dataSourceProducts"></viewProducts>
+          <viewProducts [dataSourceProducts]="dataSourceProducts" [productTypes]="productTypes"></viewProducts>
+        </div>
+        <div class="productTypes-container" *ngIf="currentView === 'productTypes'">
+          <productTypes [dataSourceProductTypes]="dataSourceProductTypes" ></productTypes>
         </div>
       </div>
     </mat-sidenav-content>

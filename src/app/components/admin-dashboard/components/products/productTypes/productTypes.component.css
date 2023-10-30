@@ -1,0 +1,56 @@
+
+.add-productTypes-card {
+    width: 400px;
+    padding: 10px;
+}
+
+.form-field-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+.title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    color: green;
+}
+
+.danger-message {
+    color: red;
+}
+
+.mat-elevation-z8 {
+    width: auto;
+    max-width: 1000px;
+    overflow: auto;
+}
+
+.table-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #6e6d6d;
+    border-radius: 5px;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+.action-buttons {
+    margin: 2px;
+    width: 20%;
+}
+
+form{
+ margin-top: 20px;   
+}
