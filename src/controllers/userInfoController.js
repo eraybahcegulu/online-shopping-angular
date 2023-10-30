@@ -15,6 +15,7 @@ async function getUserInfo(req, res) {
     } else {
       const user = customer || admin;
       return res.json({
+          _id: user._id,
           email: user.email,
           userType: user.userType,
       });
