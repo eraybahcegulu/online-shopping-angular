@@ -28,7 +28,7 @@
                     {{ product.type }}
                 </ng-container>
                 <ng-template #typeField>
-                          <mat-select style="width: 100px;" disableRipple [(value)]="product.type">
+                          <mat-select style="width: 150px;" disableRipple [(value)]="product.type">
                             <mat-option *ngFor="let productType of productTypes" [value]="productType.type">
                               {{ productType.type }}
                             </mat-option>

@@ -1,6 +1,55 @@
-<div *ngIf="userInfo">
-    Customer Home
-    Welcome {{ userInfo.email }}
-    <button (click)="logout()">Logout</button>
+<mat-toolbar color="primary">
+  <span>ONLINE SHOPPING</span>
+  <span class="example-spacer"></span>
+  <div class="demo-section">
+    <button matBadge="{{ cartTotalItems }}" matBadgeColor="warn" mat-mini-fab color="primary"> <i
+        class="fa-solid fa-cart-shopping fa-lg"></i> </button>
   </div>
-  
+  <div *ngIf="userInfo">
+    <span>Welcome {{ userInfo.email }}</span>
+  </div>
+
+  <button mat-flat-button color="warn" (click)="logout()">Logout</button>
+</mat-toolbar>
+
+<div class="product-list">
+  <div *ngFor="let product of products" class="product-card">
+    <div class="product-details">
+      <h2 class="product-name">{{ product.name }}</h2>
+
+      <div class="product-description">
+        <p><strong>Price: {{ product.price }}₺</strong></p>
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Type:</strong> {{ product.type }}</p>
+      </div>
+      <div class="product-actions">
+        <button mat-flat-button color="primary" (click)="addCart(product)"
+          [disabled]="product.isAddingToCart || product.isAddedToCart || product.quantity === 0">
+          <ng-container *ngIf="!product.isAddingToCart && !product.isAddedToCart;">
+            Add Cart
+          </ng-container>
+          <ng-container *ngIf="product.isAddingToCart">
+            <p style="color: rgb(226, 150, 9);"> Adding to cart </p>
+          </ng-container>
+          <ng-container *ngIf="product.isAddedToCart">
+            <p style="color:green;">Added to cart</p>
+          </ng-container>
+        </button>
+
+      </div>
+      <div class="product-quantity">
+        <p [ngClass]="{ 'low-quantity': product.quantity === 0 || product.quantity === 1 }">
+          <strong>
+            {{ product.quantity === 0 ? 'Product not available' : 'Last ' + product.quantity + ' Products' }}
+          </strong>
+        </p>
+        <div class="addCart-message"
+          [ngClass]="{'success-message': product.messageType === 'success', 'danger-message': product.messageType === 'danger'}">
+          <div *ngIf="product.message">
+            {{ product.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

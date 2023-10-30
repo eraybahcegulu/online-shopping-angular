@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getProducts, addProduct, deleteProduct, updateProduct, getProductTypes, addProductType, deleteProductType, updateProductType } = require('../controllers/productsController');
+const { getProducts, addProduct, deleteProduct, updateProduct, getProductTypes, addProductType, deleteProductType, updateProductType, addedCart } = require('../controllers/productsController');
 
 router.get('/products', async (req, res) => {
   getProducts(req, res);
@@ -32,6 +32,10 @@ router.delete('/deleteProductType/:productTypeId', async (req, res) => {
 
 router.put('/updateProductType/:productTypeId', async (req, res) => {
   updateProductType(req, res);
+});
+
+router.delete('/addedCart/:productId', async (req, res) => {
+  addedCart(req, res);
 });
 
 module.exports = router;

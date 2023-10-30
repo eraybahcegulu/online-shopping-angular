@@ -11,6 +11,7 @@ const loginUser = require('./src/routes/loginRoutes');
 const userRoutes = require('./src/routes/userInfoRoutes');
 const productRoutes = require('./src/routes/productsRoutes');
 const customersRoutes = require('./src/routes/customersRoutes');
+const cartRoutes = require('./src/routes/cartRoutes');
 
 db.connect();
 app.use(cors());
@@ -26,6 +27,7 @@ app.use(productRoutes);
 
 app.use(customersRoutes);
 
+app.use(cartRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
