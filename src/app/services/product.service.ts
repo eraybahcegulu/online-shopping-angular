@@ -41,4 +41,9 @@ export class ProductService {
   updateProductType(productTypeId: string, updatedProductTypeData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/updateProductType/${productTypeId}`, updatedProductTypeData);
   }
+
+  addedCart(productId: string) {
+    return this.http.delete(`${this.apiUrl}/addedCart/${productId}`);
+  }
+  
 }

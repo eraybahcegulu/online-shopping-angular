@@ -142,4 +142,28 @@ async function addProduct(req, res) {
       res.status(500).json({ message: 'Error updating product type', error: error.message });
     }
   }
-module.exports = { getProducts, addProduct, deleteProduct, updateProduct, addProductType, getProductTypes, deleteProductType , updateProductType };
+
+  async function addedCart(req, res) {
+    const productId = req.params.productId;
+  
+    try {
+      const existingProduct = await Product.findById(productId);
+      
+      if (!existingProduct) {
+        return res.status(404).json({ message: 'Product not found.' });
+      }
+      
+      if (existingProduct.quantity > 0) {
+        existingProduct.quantity -= 1;
+        await existingProduct.save();
+      }
+  
+      return res.status(200).json({ message: 'Product quantity decremented successfully.' });
+    } catch (error) {
+      console.error('Error decrementing product quantity', error);
+      res.status(500).json({ message: 'Error decrementing product quantity', error: error.message });
+    }
+  }
+
+  
+module.exports = { getProducts, addProduct, deleteProduct, updateProduct, addProductType, getProductTypes, deleteProductType , updateProductType, addedCart };
