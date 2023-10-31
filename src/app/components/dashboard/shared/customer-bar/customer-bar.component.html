@@ -1,5 +1,10 @@
 <mat-toolbar color="primary">
     <span>ONLINE SHOPPING</span>
+
+    <p style="color: white; text-decoration: none; cursor: pointer;" (click)="goToDashboard()">
+        Products
+    </p>
+
     <span class="example-spacer"></span>
     <div class="demo-section">
       <button matBadge="{{ cartTotalItems }}" matBadgeColor="warn" mat-mini-fab color="primary" (click)="goToCart()">

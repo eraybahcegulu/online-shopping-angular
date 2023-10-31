@@ -17,5 +17,12 @@ export class CartService {
   getCartTotalItems(customerId: string): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/getCartTotalItems/${customerId}`);
   }
+  
+  getCartProducts(customerId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getCartProducts/${customerId}`);
+  }
 
+  removeCart(cartData: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/removeCart`, cartData);
+  }
 }

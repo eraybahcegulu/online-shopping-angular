@@ -8,12 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer-bar.component.css']
 })
 export class CustomerBarComponent {
-  @Input() set updateCart(productAdded: any) {
+  @Input() set productAdded(productAdded: any) {
     productAdded.subscribe(() => {
       this.updateCartTotalItems();
     });
   }
 
+  @Input() set productRemoved(productRemoved: any) {
+    productRemoved.subscribe(() => {
+      this.updateCartTotalItems();
+    });
+  }
   userInfo: any;
   cartTotalItems: number = 0;
 
@@ -49,6 +54,10 @@ export class CustomerBarComponent {
         }
       );
     }
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   goToCart() {

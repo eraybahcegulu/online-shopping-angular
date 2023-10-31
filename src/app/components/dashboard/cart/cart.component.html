@@ -1,1 +1,44 @@
-<app-customer-bar></app-customer-bar>
+<app-customer-bar [productRemoved]="productRemoved"></app-customer-bar>
+
+<div *ngIf="cartProducts && cartProducts.length > 0">
+    <div class="cart-container">
+      <h2>Your Cart</h2>
+      <div class="order-card">
+        <mat-card >
+            <mat-card-content>
+                <button mat-flat-button color="accent">Order Now</button>
+                <p style="margin-top: 5px;">Total Price: {{ totalPrice }}₺</p>
+            </mat-card-content>
+          </mat-card>
+      </div>
+
+      <div class="center-box">
+        <div class="cart-box">
+          <div class="cart-items">
+            <div *ngFor="let product of cartProducts" class="cart-item">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{ product.product_name }}</mat-card-title>
+                  <mat-card-subtitle>{{ product.product_price }}₺</mat-card-subtitle>
+                </mat-card-header>
+                <div class="product-description">
+                  <p><strong>Description:</strong> {{ product.product_description }}</p>
+                  <p><strong>Type:</strong> {{ product.product_type }}</p>
+                  <i (click)="removeCart(product)" class="fa-solid fa-xmark fa-lg" style="color: #ff0000;"></i>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="cartProducts && cartProducts.length === 0">
+    <div class="cart-container">
+      <h2>Your Cart</h2>
+      <div class="center-box">
+        <p>Your cart is empty.</p>
+      </div>
+    </div>
+  </div>

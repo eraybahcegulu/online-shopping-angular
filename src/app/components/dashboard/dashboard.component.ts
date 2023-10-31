@@ -5,7 +5,6 @@ import { CartService } from 'src/app/services/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -36,7 +35,6 @@ export class DashboardComponent {
       this.products = products;
     });
   }
-
 
   addCart(product: any) {
     product.isAddingToCart = true;
