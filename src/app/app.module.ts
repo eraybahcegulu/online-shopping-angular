@@ -17,6 +17,8 @@ import { ViewProductsComponent } from './components/admin-dashboard/components/p
 import { AddCustomersComponent } from './components/admin-dashboard/components/customers/addCustomers/addCustomers.component';
 import { AddProductsComponent } from './components/admin-dashboard/components/products/addProducts/addProducts.component';
 import { ProductTypesComponent } from './components/admin-dashboard/components/products/productTypes/productTypes.component';
+import { CartComponent } from './components/dashboard/cart/cart.component';
+import { CustomerBarComponent} from './components/dashboard/shared/customer-bar/customer-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { ProductTypesComponent } from './components/admin-dashboard/components/p
     ViewProductsComponent,
     AddCustomersComponent,
     AddProductsComponent,
-    ProductTypesComponent
+    ProductTypesComponent,
+    CartComponent,
+    CustomerBarComponent
   ],
   imports: [
     RouterModule,

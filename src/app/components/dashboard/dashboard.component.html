@@ -1,16 +1,4 @@
-<mat-toolbar color="primary">
-  <span>ONLINE SHOPPING</span>
-  <span class="example-spacer"></span>
-  <div class="demo-section">
-    <button matBadge="{{ cartTotalItems }}" matBadgeColor="warn" mat-mini-fab color="primary"> <i
-        class="fa-solid fa-cart-shopping fa-lg"></i> </button>
-  </div>
-  <div *ngIf="userInfo">
-    <span>Welcome {{ userInfo.email }}</span>
-  </div>
-
-  <button mat-flat-button color="warn" (click)="logout()">Logout</button>
-</mat-toolbar>
+<app-customer-bar [updateCart]="productAdded"></app-customer-bar>
 
 <div class="product-list">
   <div *ngFor="let product of products" class="product-card">

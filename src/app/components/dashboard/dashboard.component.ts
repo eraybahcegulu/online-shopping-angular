@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,7 +18,8 @@ export class DashboardComponent {
   message: string = '';
   messageType: string = '';
 
-  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService) { }
+  @Output() productAdded = new EventEmitter<any>();
+  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService, private router: Router) { }
 
   logout(): void {
     this.authService.logout()
@@ -25,15 +29,6 @@ export class DashboardComponent {
     this.authService.getUserInfo().subscribe(
       (userInfo: any) => {
         this.userInfo = userInfo;
-
-        if (this.userInfo) {
-          this.cartService.getCartTotalItems(this.userInfo._id).subscribe(
-            (totalItems: number) => {
-              this.cartTotalItems = totalItems;
-              console.log(this.cartTotalItems);
-            }
-          );
-        }
       }
     );
 
@@ -42,15 +37,6 @@ export class DashboardComponent {
     });
   }
 
-  updateCartTotalItems() {
-
-    this.cartService.getCartTotalItems(this.userInfo._id).subscribe(
-      (totalItems: number) => {
-        this.cartTotalItems = totalItems;
-        console.log(this.cartTotalItems);
-      }
-    );
-  }
 
   addCart(product: any) {
 
@@ -84,11 +70,10 @@ export class DashboardComponent {
 
           if (product.isAddedToCart) {
             this.handleAddCartResponse(product, response);
-            this.updateCartTotalItems();
+            this.productAdded.emit(product);
             if (product.quantity > 0) {
               product.quantity -= 1;
             }
-
             const productId = product._id;
 
             this.productService.addedCart(productId).subscribe(
@@ -126,5 +111,9 @@ export class DashboardComponent {
       product.message = '';
       product.messageType = '';
     }, 2000);
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 }

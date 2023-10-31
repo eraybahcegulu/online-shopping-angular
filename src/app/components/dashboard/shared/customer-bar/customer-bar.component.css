@@ -1,0 +1,9 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    padding-left: 10%;
+    padding-right: 10%;
+    gap: 20px;
+}
