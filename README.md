@@ -25,3 +25,7 @@ Bearer token > Front-end HTTP isteği ile kimlik doğrulama bilgileri back-end i
 ![5](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/19032c69-35b3-4352-8e8a-65050de5555a)
 
 ![6](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/58190cac-5419-4563-9d4f-5a5714e01570)
+
+![7](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/0e755347-5879-4afd-b912-414bc4a5dbce)
+
+![8](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/7eb9991e-4e16-41f9-afd9-2a5810541c0b)
