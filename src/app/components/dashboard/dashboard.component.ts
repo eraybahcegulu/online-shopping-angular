@@ -39,7 +39,6 @@ export class DashboardComponent {
 
 
   addCart(product: any) {
-
     product.isAddingToCart = true;
 
     const cartData = {
@@ -51,23 +50,22 @@ export class DashboardComponent {
       product_price: product.price
     };
 
-    this.cartService.addCart(cartData).subscribe(
-      (response) => {
-        setTimeout(() => {
-          product.isAddingToCart = false;
-          product.isAddedToCart = true;
+    setTimeout(() => {
+      product.isAddingToCart = false;
+      product.isAddedToCart = true;
 
-          setTimeout(() => {
-            product.isAddedToCart = false;
-          }, 2000);
-          setTimeout(() => {
-            product.isDisabled = false;
-          }, 2000);
+      setTimeout(() => {
+        product.isAddedToCart = false;
+      }, 2000);
+      setTimeout(() => {
+        product.isDisabled = false;
+      }, 2000);
 
-          if (product.quantity === 0) {
-            product.isDisabled = true;
-          }
-
+      if (product.quantity === 0) {
+        product.isDisabled = true;
+      }
+      this.cartService.addCart(cartData).subscribe(
+        (response) => {
           if (product.isAddedToCart) {
             this.handleAddCartResponse(product, response);
             this.productAdded.emit(product);
@@ -77,18 +75,16 @@ export class DashboardComponent {
             const productId = product._id;
 
             this.productService.addedCart(productId).subscribe(
-
             )
           }
-        }, 2000);
-      },
-      (error) => {
-        this.handleAddCartError(product, error);
-        product.isAddingToCart = false;
-        product.isAddedToCart = false;
-      }
-    );
-
+        },
+        (error) => {
+          this.handleAddCartError(product, error);
+          product.isAddingToCart = false;
+          product.isAddedToCart = false;
+        }
+      )
+    }, 2000);
   }
 
   private handleAddCartResponse(product: any, response: any): void {
