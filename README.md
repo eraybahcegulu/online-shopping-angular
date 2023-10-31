@@ -14,6 +14,25 @@ Bearer token > Front-end HTTP isteği ile kimlik doğrulama bilgileri back-end i
 "Authorization" başlığını kullanır
 ```
 
+```
+@Output() productAdded = new EventEmitter<any>();
+<app-customer-bar [productAdded]="productAdded"></app-customer-bar>
+  @Input() set productAdded(productAdded: any) {
+    productAdded.subscribe(() => {
+      this.updateCartTotalItems();
+    });
+  }
+
+
+@Output() productRemoved = new EventEmitter<any>();
+<app-customer-bar [productRemoved]="productRemoved"></app-customer-bar>
+  @Input() set productRemoved(productRemoved: any) {
+    productRemoved.subscribe(() => {
+      this.updateCartTotalItems();
+    });
+  }
+```
+
 ![1](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/a5b9be5c-fc96-485e-bc8f-b6a1888c1fff)
 
 ![2](https://github.com/eraybahcegulu/online-shopping-angular-mongodb/assets/84785201/abcba9f3-f223-4d65-b475-c60eb10e759c)
