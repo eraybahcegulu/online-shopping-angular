@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = 'http://localhost:3000';
   private jwtHelper: JwtHelperService = new JwtHelperService();
 
@@ -49,6 +50,15 @@ export class AuthService {
     }
   }
 
+  getUserType(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken.userType || null;
+    }
+    return null;
+  }
+  
   getToken(): string | null {
     return localStorage.getItem('access_token');
   }

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from '../../../../services/auth.service';
-import { ProductService } from 'src/app/services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 @Component({
@@ -17,7 +16,6 @@ export class CustomerBarComponent {
 
   userInfo: any;
   cartTotalItems: number = 0;
-
 
   constructor(private authService: AuthService, private cartService: CartService, private router: Router) { }
 
@@ -54,6 +52,6 @@ export class CustomerBarComponent {
   }
 
   goToCart() {
-    this.router.navigate(['/dashboard/cart']);
+    this.router.navigate(['/cart']);
   }
 }
