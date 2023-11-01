@@ -30,8 +30,8 @@ export class AddProductsComponent {
     return this.newProductForm.controls;
   }
 
-  editErrors(inputProductName: any, inputProductDescription: any, inputProductPrice: any, inputProductQuantity : any, selectProductType : any): boolean {
-    if (inputProductName.value.trim().length < 1 || inputProductDescription.value.trim().length < 1 || inputProductPrice.value.trim().length < 1 || inputProductQuantity.value.trim().length < 1 || selectProductType.value.trim().length < 1) {
+  editErrors(inputs: any): boolean {
+    if (inputs.value.trim().length < 1 ) {
       return true;
     }
     return false;
