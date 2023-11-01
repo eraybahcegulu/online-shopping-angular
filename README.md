@@ -1,4 +1,4 @@
-# OnlineShopping Angular-MongoDB
+# OnlineShopping Angular-MongoDB AngularMaterial
 
 - terminal1 npm run server
 - terminal2 npm run start
