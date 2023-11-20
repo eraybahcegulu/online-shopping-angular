@@ -1,0 +1,82 @@
+<div *ngIf="userInfo">
+<nz-layout class="layout">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+
+
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li style="color: red;" nz-menu-item>
+        <span nz-icon nzType="user" nzTheme="outline"></span>
+        <span>{{ userInfo.email }}</span>
+      </li>
+
+
+      
+      <li (click)="logout()" style="color: red;" nz-menu-item>
+        <span nz-icon nzType="logout" nzTheme="outline"></span>
+        <span>Logout</span>
+      </li>
+
+
+      <li nz-submenu nzTitle="Products" nzIcon="inbox">
+        <ul>
+          <li (click)="ViewProducts()" nz-menu-item>View</li>
+          <li (click)="AddProduct()" nz-menu-item>Add</li>
+          <li (click)="ProductTypes()" nz-menu-item>Product Types</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Customers" nzIcon="team" >
+        <ul>
+          <li (click)="ViewCustomers()" nz-menu-item>View</li>
+          <li (click)="AddCustomer()" nz-menu-item>Add</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <span
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></span>
+      
+    </nz-header>
+    <nz-content>
+      <nz-breadcrumb>
+
+        <nz-breadcrumb-item> <strong> Admin Dashboard </strong></nz-breadcrumb-item>
+
+        <ng-container *ngIf="selectedComponent === components.viewProducts">
+          <nz-breadcrumb-item> <strong> View Products </strong></nz-breadcrumb-item>
+        </ng-container>
+
+        <ng-container *ngIf="selectedComponent === components.addProduct">
+          <nz-breadcrumb-item> <strong> Add Product </strong></nz-breadcrumb-item>
+        </ng-container>
+
+        <ng-container *ngIf="selectedComponent === components.productTypes">
+          <nz-breadcrumb-item> <strong> Product Types </strong></nz-breadcrumb-item>
+        </ng-container>
+
+        <ng-container *ngIf="selectedComponent === components.viewCustomers">
+          <nz-breadcrumb-item> <strong> View Customers </strong></nz-breadcrumb-item>
+        </ng-container>
+
+        <ng-container *ngIf="selectedComponent === components.addCustomer">
+          <nz-breadcrumb-item> <strong> Add Customer </strong></nz-breadcrumb-item>
+        </ng-container>
+
+      </nz-breadcrumb>
+      
+      <div style="text-align: center; height: 95%; display: flex; justify-content: center;" class="inner-content">
+        <ng-container *ngIf="selectedComponent">
+          <ng-container *ngComponentOutlet="selectedComponent"></ng-container>
+        </ng-container>
+
+      </div>
+    </nz-content>
+
+  </nz-layout>
+</nz-layout>
+</div>
